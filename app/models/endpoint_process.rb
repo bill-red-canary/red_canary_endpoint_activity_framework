@@ -17,6 +17,7 @@ class EndpointProcess < ApplicationRecord
   validates_presence_of :command
 
   has_one :file_activity, dependent: :destroy
+  has_one :network_activity, dependent: :destroy
 
   after_validation :execute_process, on: :create
 
