@@ -15,5 +15,11 @@ RSpec.describe RedCanary::ExecuteProcess do
       expect(response[:start_time]).to be_a(DateTime)
       expect(response[:user_name]).to eq(ENV['USER'])
     end
+
+    it 'returns an empty hash if the command is not valid' do
+      service = described_class.new('invalid command')
+      response = service.call
+      expect(response).to eq({})
+    end
   end
 end
