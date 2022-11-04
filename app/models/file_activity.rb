@@ -36,7 +36,7 @@ class FileActivity < ApplicationRecord
   def perform_file_activity
     return false if file_path.blank? || activity.blank?
 
-    response = RedCanary::FileActivity.new(file_path, activity).call
+    response = RedCanary::ExecuteFileActivity.new(file_path, activity).call
 
     self.endpoint_process = response
   end

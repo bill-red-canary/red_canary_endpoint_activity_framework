@@ -18,17 +18,21 @@ RSpec.describe RedCanary::ExportLog do
       let!(:network_activity) { create(:network_activity) }
 
       it 'returns a JSON string of the log data' do
-        expect(service.call).to eq(EndpointProcess.all.to_json)
+        expect(service.call).to eq(EndpointProcess.all.to_json(include: [:file_activity, :network_activity]))
       end
 
       it 'returns a CSV string of the log data' do
         response = RedCanary::ExportLog.new(format: :csv).call
         parsed_csv = CSV.parse(response)
 
-        expect(parsed_csv[0]).to eq(EndpointProcess.first.attributes.keys)
+        expect(parsed_csv[0]).to eq(RedCanary::ExportLog.new.csv_headers)
         expect(parsed_csv[1]).to eq(EndpointProcess.first.attributes.values.map{|val| val.to_s})
-        expect(parsed_csv[2]).to eq(EndpointProcess.second.attributes.values.map{|val| val.to_s})
-        expect(parsed_csv[3]).to eq(EndpointProcess.third.attributes.values.map{|val| val.to_s})
+        file_process = EndpointProcess.second
+        expect(parsed_csv[2]).to eq(file_process.attributes.values.map{|val| val.to_s} +
+                                      file_process.file_activity.attributes.values.map{|val| val.to_s})
+        network_process = EndpointProcess.third
+        expect(parsed_csv[3]).to eq(network_process.attributes.values.map{|val| val.to_s} +
+                                      network_process.network_activity.attributes.values.map{|val| val.to_s})
       end
     end
   end

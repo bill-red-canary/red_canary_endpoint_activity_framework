@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module RedCanary
-  # FileActivity accepts a file path {String} and an action {Symbol} [:create, :update, :destroy] and
+  # ExecuteFileActivity accepts a file path {String} and an action {Symbol} [:create, :update, :destroy] and
   # returns an EndpointProcess on success.
-  class FileActivity
+  class ExecuteFileActivity
     def initialize(file_path, action)
       return if file_path.blank? || action.blank?
 

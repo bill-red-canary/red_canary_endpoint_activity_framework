@@ -49,7 +49,7 @@ class NetworkActivity < ApplicationRecord
   def initiate_network_connection
     return false if url.blank?
 
-    response = RedCanary::NetworkActivity.new(url, data).call
+    response = RedCanary::ExecuteNetworkActivity.new(url, data).call
 
     self.endpoint_process = response
   end
