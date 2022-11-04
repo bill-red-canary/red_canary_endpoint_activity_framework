@@ -14,8 +14,8 @@ module RedCanary
     private
 
     def execute_command(command)
-      # Executes the command on the host system
-      pid = Process.spawn(command) rescue nil
+      # Executes the command (silently) on the host system
+      pid = Process.spawn(command, [:out, :err] => '/dev/null') rescue nil
 
       # Return early if the process could not be spawned
       return {} unless pid
