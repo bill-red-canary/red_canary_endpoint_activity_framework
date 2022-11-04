@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe RedCanary::FileActivity do
+RSpec.describe RedCanary::ExecuteFileActivity do
   let(:file_path) { 'test_file.txt' }
 
-  subject { RedCanary::FileActivity.new(file_path, action) }
+  subject { RedCanary::ExecuteFileActivity.new(file_path, action) }
 
   before do
     File.delete(file_path) if File.exist?(file_path)

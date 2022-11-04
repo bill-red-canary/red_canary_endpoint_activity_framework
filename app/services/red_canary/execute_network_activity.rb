@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module RedCanary
-  # NetworkActivity accepts a URL {String} and data {JSON} param, then uses a curl command to
+  # ExecuteNetworkActivity accepts a URL {String} and data {JSON} param, then uses a curl command to
   # initiate a network connection.
-  class NetworkActivity
+  class ExecuteNetworkActivity
     def initialize(url, data = {})
       return if url.blank?
 
@@ -18,7 +18,8 @@ module RedCanary
     private
 
     def initiate_network_connection(url, data)
-      command = "curl -X POST -H \"Content-Type: application/json\" -d '#{data}' -o /dev/null #{url}"
+      data_string = data.empty? ? '' : "-d '#{data}'"
+      command = "curl -X POST -H \"Content-Type: application/json\" #{data_string} -o /dev/null #{url}"
       EndpointProcess.create(command: command)
     end
   end

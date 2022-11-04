@@ -45,6 +45,8 @@ RSpec.describe NetworkActivity, type: :model do
           expect(network_activity.persisted?).to be(true)
           expect(network_activity.url).to eq('https://fake-domain.redcanary.com')
           expect(network_activity.data.to_s).to eq({ foo: 'bar' }.to_s)
+          expect(network_activity.data_protocol).to eq('https')
+          expect(network_activity.destination_address).to eq('fake-domain.redcanary.com')
           expect(network_activity.endpoint_process.persisted?).to be(true)
           expect(network_activity.endpoint_process.name).to eq("curl")
         end
