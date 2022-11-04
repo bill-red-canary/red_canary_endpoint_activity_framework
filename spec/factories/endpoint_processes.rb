@@ -13,10 +13,6 @@
 #
 FactoryBot.define do
   factory :endpoint_process do
-    command { "MyText" }
-    name { "MyString" }
-    process_id { "MyString" }
-    start_time { "2022-11-04 09:54:35" }
-    user_name { "MyString" }
+    command { "cat /proc/cpuinfo" }
   end
 end
