@@ -18,6 +18,7 @@ class EndpointProcess < ApplicationRecord
 
   after_validation :execute_process, on: :create
 
+  scope :never_started, -> { where(start_time: nil) }
   scope :started_between, ->(start_time, end_time) { where(start_time: start_time..end_time) }
 
   private
