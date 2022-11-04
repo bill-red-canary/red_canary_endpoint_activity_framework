@@ -8,7 +8,7 @@ module RedCanary
       return if file_path.blank? || action.blank?
 
       @file_path = file_path
-      @action = action
+      @action = action.to_sym
     end
 
     def call

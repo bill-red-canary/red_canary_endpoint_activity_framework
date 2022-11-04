@@ -18,6 +18,10 @@ require 'rails_helper'
 RSpec.describe EndpointProcess, type: :model do
   it { should validate_presence_of(:command) }
 
+  describe 'associations' do
+    it { should have_one(:file_activity).dependent(:destroy) }
+  end
+
   describe 'on create' do
     let(:command) { 'cat /proc/cpuinfo' }
     let(:process) { described_class.create(command: command) }
