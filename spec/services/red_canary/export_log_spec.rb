@@ -14,7 +14,7 @@ RSpec.describe RedCanary::ExportLog do
 
     context 'when there is log data' do
       let!(:endpoint_process) { create(:endpoint_process) }
-      let!(:second_endpoint_process) { create(:endpoint_process) }
+      let!(:file_activity) { create(:file_activity) }
 
       it 'returns a JSON string of the log data' do
         expect(service.call).to eq(EndpointProcess.all.to_json)

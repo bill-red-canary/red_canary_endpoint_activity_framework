@@ -16,8 +16,11 @@
 class EndpointProcess < ApplicationRecord
   validates_presence_of :command
 
+  has_one :file_activity, dependent: :destroy
+
   after_validation :execute_process, on: :create
 
+  scope :never_started, -> { where(start_time: nil) }
   scope :started_between, ->(start_time, end_time) { where(start_time: start_time..end_time) }
 
   private
