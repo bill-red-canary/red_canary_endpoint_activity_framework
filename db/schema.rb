@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_04_191653) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_04_203008) do
   create_table "endpoint_processes", force: :cascade do |t|
     t.text "command"
     t.string "name"
@@ -30,5 +30,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_04_191653) do
     t.index ["endpoint_process_id"], name: "index_file_activities_on_endpoint_process_id"
   end
 
+  create_table "network_activities", force: :cascade do |t|
+    t.text "data"
+    t.string "data_protocol"
+    t.integer "data_size"
+    t.string "destination_address"
+    t.integer "destination_port"
+    t.integer "endpoint_process_id", null: false
+    t.string "url", null: false
+    t.string "source_address"
+    t.integer "source_port"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["endpoint_process_id"], name: "index_network_activities_on_endpoint_process_id"
+  end
+
   add_foreign_key "file_activities", "endpoint_processes"
+  add_foreign_key "network_activities", "endpoint_processes"
 end
