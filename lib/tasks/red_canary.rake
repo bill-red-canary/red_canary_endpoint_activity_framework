@@ -53,4 +53,13 @@ namespace :red_canary do
 
     pp NetworkActivity.create(url: args[:url], data: args[:data])
   end
+
+  desc 'Exports the log data in the specified format'
+  task 'export_log', [:format, :start_time, :end_time] => :environment do |_, args|
+    usage = %(
+      USAGE: rake red_canary:export_log[format,start_time,end_time]
+    )
+
+    pp RedCanary::ExportLog.new(format: args[:format], start_time: args[:start_time], end_time: args[:end_time]).call
+  end
 end
