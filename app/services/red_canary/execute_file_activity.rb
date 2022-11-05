@@ -23,8 +23,8 @@ module RedCanary
         create_file(file_path)
       when :update
         update_file(file_path)
-      when :destroy
-        destroy_file(file_path)
+      when :delete
+        delete_file(file_path)
       else
         false
       end
@@ -40,7 +40,7 @@ module RedCanary
       EndpointProcess.create(command: "echo 'Hello World' > #{file_path}")
     end
 
-    def destroy_file(file_path)
+    def delete_file(file_path)
       EndpointProcess.create(command: "rm #{file_path}")
     end
   end

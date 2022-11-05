@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
 module RedCanary
-  # ExportLog accepts 3 optional parameters: format {Symbol} [:csv, :json], start_date {DateTime}, end_date {DateTime}
+  # ExportLog accepts 3 optional parameters: format {Symbol} [:csv, :json], start_time {DateTime}, end_time {DateTime}
   # It then returns a {String} of the log data.
 
   class ExportLog
     require 'csv'
 
-    def initialize(format: :json, start_date: DateTime.now - 1.year, end_date: DateTime.now)
+    def initialize(format: :json, start_time: DateTime.now - 1.year, end_time: DateTime.now)
       @format = format
-      @start_date = start_date
-      @end_date = end_date
+      @start_time = start_time
+      @end_time = end_time
     end
 
     def call
-      export_log(@format, @start_date, @end_date)
+      export_log(@format, @start_time, @end_time)
     end
 
     def csv_headers
@@ -23,8 +23,8 @@ module RedCanary
 
     private
 
-    def export_log(format, start_date, end_date)
-      log_data = EndpointProcess.started_between(start_date, end_date).includes(:file_activity, :network_activity)
+    def export_log(format, start_time, end_time)
+      log_data = EndpointProcess.started_between(start_time, end_time).includes(:file_activity, :network_activity)
 
       # Return early if there is no log data
       return '' if log_data.empty?

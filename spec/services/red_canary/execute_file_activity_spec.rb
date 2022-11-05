@@ -44,7 +44,7 @@ RSpec.describe RedCanary::ExecuteFileActivity do
     end
 
     context 'when the action is destroy' do
-      let(:action) { :destroy }
+      let(:action) { :delete }
 
       before do
         File.open(file_path, 'w') { |f| f.write('Hello World') }
