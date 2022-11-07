@@ -46,6 +46,9 @@ rake red_canary:create_network_connection['https://redcanary.com',"{foo: 'bar'}"
 
 # Export log data in JSON format
 rake red_canary:export_log | tee log.json
+
+# Run all tests and export logs to file
+rake red_canary:run_tests | tee log.json
 ```
 
 You can also run commands directly from the console or in code:
@@ -66,7 +69,7 @@ rspec
 ```
 
 ## Notes
-* Currently the app is built with Linux and Mac commands.  Ideally locales would be configured for each platform; piping in the correct CLI equivalent string, when the command is executed by `RedCanary::ExecuteProcess`.
+* Currently the app is built with Linux and Mac commands.  Ideally, locales would be configured for each platform; replacing the hard-coded command with the correct CLI equivalent string, when the command is executed by `RedCanary::ExecuteProcess`.
 * Adding additional Activity Types is possible by adding a new `XyzActivity` model and `ExecuteXyzActivity` service in the established pattern. (Registry key/value modification is similar to FileActivity modification)`
 * Additional `RedCanary::ExportLog` formats can be added as needed.
 * Currently the app is only configured to run from the command line, but an API layer could easily be added to remotely execute activities from a webhook and return the JSON logfile.
