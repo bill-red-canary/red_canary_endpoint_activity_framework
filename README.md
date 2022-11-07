@@ -24,8 +24,8 @@ rails db:migrate
 ## Usage
 At this time, the app is intended to be run from the command line.  The following commands are available:
 
-View available rake tasks:
 ```
+# View available rake tasks:
 rake -T | grep red_canary
 
 rake red_canary:create_file[file_path]                  # Creates a file in the specified path
@@ -36,16 +36,19 @@ rake red_canary:export_log[format,start_time,end_time]  # Exports the log data i
 rake red_canary:run_tests                               # Runs a series of tests on the host machine
 rake red_canary:update_file[file_path]                  # Updates a file in the specified path
 
-Eamples:
+Examples:
 
 # Create a process on host machine
 rake red_canary:create_process['cat /proc/cpuinfo']
 
 # Create a network connection on host machine
-rake red_canary:create_network_connection['https://redcanary',"{foo: 'bar'}"]
+rake red_canary:create_network_connection['https://redcanary.com',"{foo: 'bar'}"]
 
 # Export log data in JSON format
 rake red_canary:export_log | tee log.json
+
+# Run all tests and export logs to file
+rake red_canary:run_tests | tee log.json
 ```
 
 You can also run commands directly from the console or in code:
@@ -66,7 +69,7 @@ rspec
 ```
 
 ## Notes
+* Currently the app is built with Linux and Mac commands.  Ideally, locales would be configured for each platform; replacing the hard-coded command with the correct CLI equivalent string, when the command is executed by `RedCanary::ExecuteProcess`.
+* Adding additional Activity Types is possible by adding a new `XyzActivity` model and `ExecuteXyzActivity` service in the established pattern. (Registry key/value modification is similar to FileActivity modification)`
+* Additional `RedCanary::ExportLog` formats can be added as needed.
 * Currently the app is only configured to run from the command line, but an API layer could easily be added to remotely execute activities from a webhook and return the JSON logfile.
-* Currently the app is built with Linux and Mac commands.  Ideally locales would be configured for each platform; piping in the correct CLI equivalent string, when the command is executed by `RedCanary::ExecuteProcess`.
-* Adding additional Activity Types is possible by adding a new `XyzActivity` model and `ExecuteXyzActivity` service in the established pattern. (Registry key/value modification is similar to FileActivity modification)` 
-* Additional `RedCanary::ExportLog` formats can be added as needed. 
